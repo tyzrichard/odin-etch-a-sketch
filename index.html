@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Etch A Sketch</title>
+</head>
+
+<body>
+  <div class="container"></div>
+
+  <script>
+    
+    function newGrid(length) {
+      const container = document.querySelector(".container");
+      for (i = 0; i < length; i++) {
+        const row = document.createElement("div");
+        row.style.cssText = "display: flex; flex: 1; gap: 2px; width: 100vh";
+        row.classList.add("row");
+
+        for (j = 0; j < length; j++) {
+          const square = document.createElement("div");
+          square.style.cssText = "display:flex; flex-direction: column; width: 100vh; background-color: blue;";
+          square.classList.add("square");
+          row.appendChild(square);
+        }
+        container.appendChild(row);
+      }
+    }
+    newGrid(8);
+  </script>
+</body>
+
+</html>
