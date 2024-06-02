@@ -11,26 +11,77 @@
 
 <body>
   <div class="container"></div>
+  <div class="ui">
+    <div>
+      <button class="colour" id="red"></button>
+      <button class="colour" id="orange"></button>
+    </div>
+    <div>
+      <button class="colour" id="yellow"></button>
+      <button class="colour" id="green"></button>
+    </div>
+    <div>
+      <button class="colour" id="blue"></button>
+      <button class="colour" id="purple"></button>
+    </div>
+    <div>
+      <button class="colour" id="violet"></button>
+      <button class="colour" id="black"></button>
+    </div>
+    <div>
+      <button class="erase colour" id="lightgrey"></button>
+    </div>
+    <button class="newGrid">Create New Grid</button>
+  </div>
+  
 
   <script>
-    
+    let colour = "blue";
+
+    colourButtons = document.querySelectorAll(".colour");
+    colourButtons.forEach((btn) => {
+      btn.style.backgroundColor = btn.id;
+      btn.addEventListener("click", () => {
+        colour = btn.id;
+      });
+    });
+
     function newGrid(length) {
       const container = document.querySelector(".container");
+      container.innerHTML = "";
       for (i = 0; i < length; i++) {
         const row = document.createElement("div");
-        row.style.cssText = "display: flex; flex: 1; gap: 2px; width: 100vh";
+        row.style.cssText = "display: flex; flex: 1; gap: 1px; width: 100vh";
         row.classList.add("row");
 
         for (j = 0; j < length; j++) {
           const square = document.createElement("div");
-          square.style.cssText = "display:flex; flex-direction: column; width: 100vh; background-color: blue;";
+          square.style.cssText = "display:flex; flex-direction: column; width: 100vh; background-color: lightgrey;";
+          square.addEventListener("mouseover", () => {
+            square.style.cssText = `display:flex; flex-direction: column; width: 100vh; background-color: ${colour};`;
+          });
           square.classList.add("square");
           row.appendChild(square);
         }
         container.appendChild(row);
       }
     }
-    newGrid(8);
+    newGrid(20);
+
+    const newGridButton = document.querySelector(".newGrid");
+    newGridButton.addEventListener("click", () => {
+      let gridLength = parseInt(prompt("Enter the length of your new grid! (Positive integer less than 100) "));
+      if (Number.isInteger(gridLength)) {
+        if (gridLength > 100) {
+          gridLength = 100;
+        } else if (gridLength <= 0) {
+          gridLength = 1;
+        }
+      } else {
+        gridLength = 20;
+      }
+      newGrid(gridLength);
+    });
   </script>
 </body>
 
