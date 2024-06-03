@@ -29,25 +29,37 @@
       <button class="colour" id="violet"></button>
       <button class="colour" id="black"></button>
     </div>
-    <button class="erase colour" id="lightgrey">Erase</button>
+    <div>
+      <button class="erase colour" id="lightgrey">Erase</button>
+      <button class="clear">Clear</button>
+    </div>
+
     <div class="options">Other options!
       <button class="random">Randomise Colours</button>
-      <button class="darkening">Progressive Darkening</button>
       <button class="newGrid">Create New Grid</button>
     </div>
   </div>
 
 
   <script>
-    let colour = "blue";
+    // why are you here PISS OFF DAKSH
+    let colour = "lightgrey";
+    let randColour = false;
+    let prevGridLength = 20
 
     colourButtons = document.querySelectorAll(".colour");
     colourButtons.forEach((btn) => {
       btn.style.backgroundColor = btn.id;
       btn.addEventListener("click", () => {
         colour = btn.id;
+        randColour = false;
       });
     });
+
+    randColourButton = document.querySelector(".random");
+    randColourButton.addEventListener("click", () => {
+      randColour = true;
+    })
 
     function newGrid(length) {
       const container = document.querySelector(".container");
@@ -61,6 +73,12 @@
           const square = document.createElement("div");
           square.style.cssText = "display:flex; flex-direction: column; width: 100vh; background-color: lightgrey;";
           square.addEventListener("mouseover", () => {
+            if (randColour == true) {
+              const r = Math.floor(Math.random() * 256);
+              const g = Math.floor(Math.random() * 256);
+              const b = Math.floor(Math.random() * 256);
+              colour = `rgb(${r},${g},${b})`;
+            }
             square.style.cssText = `display:flex; flex-direction: column; width: 100vh; background-color: ${colour};`;
           });
           square.classList.add("square");
@@ -69,7 +87,12 @@
         container.appendChild(row);
       }
     }
-    newGrid(20);
+    newGrid(prevGridLength);
+
+    const clearButton = document.querySelector(".clear");
+    clearButton.addEventListener("click", () => {
+      newGrid(prevGridLength);
+    });
 
     const newGridButton = document.querySelector(".newGrid");
     newGridButton.addEventListener("click", () => {
@@ -80,10 +103,11 @@
         } else if (gridLength <= 0) {
           gridLength = 1;
         }
+        prevGridLength = gridLength
+        newGrid(gridLength);
       } else {
-        gridLength = 20;
+        alert("Hey! You may have entered an invalid value. Wanna try again?")
       }
-      newGrid(gridLength);
     });
   </script>
 </body>

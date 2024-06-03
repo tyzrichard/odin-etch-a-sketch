@@ -32,8 +32,7 @@ body {
 }
 
 .newGrid,
-.random,
-.darkening {
+.random {
     font-size: 16px;
     background-color: lightgoldenrodyellow;
     padding: 20px;
@@ -43,7 +42,7 @@ body {
     border-radius: 10px; 
 }
 
-.colour {
+.colour, .clear {
     height: 50px;
     width: 50px;
     margin: 8px;
